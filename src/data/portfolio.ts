@@ -64,8 +64,12 @@ export const skills = [
     ],
   },
   {
+    category: "AI & Automation",
+    items: ["Claude AI", "MCP (Model Context Protocol)", "AI Agents", "LLM Integration"],
+  },
+  {
     category: "Tools",
-    items: ["Git", "SCRUM", "REST APIs"],
+    items: ["Git", "SCRUM", "REST APIs", "Go (Golang)", "Docker"],
   },
 ];
 

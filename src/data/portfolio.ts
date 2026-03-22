@@ -11,7 +11,7 @@ export const hero = {
 
 export const about = {
   summary:
-    "Full Stack Developer con más de 4 años de experiencia, especializado en el diseño y desarrollo de aplicaciones web bajo principios de arquitectura hexagonal, Domain-Driven Design (DDD) y aplicación de patrones de diseño. Trabajo con tecnologías modernas como JavaScript, TypeScript, Laravel, Node.js, React, NestJS y TypeORM. Lidero proyectos centrados en la estructuración de software modular, comunicación entre microservicios, y separación clara de capas de dominio, aplicación e infraestructura. Me apasiona la arquitectura de software y disfruto participar en proyectos desafiantes que me permitan aplicar soluciones escalables y de alto rendimiento.",
+    "Full Stack Developer con más de 4 años de experiencia, especializado en el diseño y desarrollo de aplicaciones web bajo principios de arquitectura hexagonal, Domain-Driven Design (DDD) y aplicación de patrones de diseño. Lidero proyectos centrados en la estructuración de software modular, comunicación entre microservicios, y separación clara de capas de dominio, aplicación e infraestructura. Me apasiona la arquitectura de software y disfruto participar en proyectos desafiantes que me permitan aplicar soluciones escalables y de alto rendimiento.",
   achievements: [
     {
       title: "Web App Optimization",

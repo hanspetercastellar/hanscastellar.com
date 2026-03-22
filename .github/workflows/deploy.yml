@@ -16,6 +16,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+      image: ${{ steps.meta.outputs.tags }}
 
     steps:
       - name: Checkout code
@@ -48,27 +50,28 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
-    name: Deploy to VPS
-    runs-on: ubuntu-latest
+    name: Deploy on VPS
+    runs-on: self-hosted
     needs: build-and-push
     permissions:
       packages: read
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker pull ghcr.io/${{ github.repository }}:latest
-            docker stop hanscastellar || true
-            docker rm hanscastellar || true
-            docker run -d \
-              --name hanscastellar \
-              --restart unless-stopped \
-              -p 3000:3000 \
-              ghcr.io/${{ github.repository }}:latest
-            docker image prune -f
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Pull latest image
+        run: docker pull ghcr.io/${{ github.repository }}:latest
+
+      - name: Restart container
+        run: |
+          docker stop hanscastellar || true
+          docker rm hanscastellar || true
+          docker run -d \
+            --name hanscastellar \
+            --restart unless-stopped \
+            -p 3000:3000 \
+            ghcr.io/${{ github.repository }}:latest
+
+      - name: Clean up old images
+        run: docker image prune -f
